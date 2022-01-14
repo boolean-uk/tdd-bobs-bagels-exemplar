@@ -17,4 +17,18 @@ describe('Basket', () => {
     // verify
     expect(result).toEqual(expected);
   });
+
+  it('add an item to the basket', () => {
+    // set up
+    const expected = {
+      type: 'onion',
+      price: '£2.50',
+    };
+
+    // execute
+    basket.addItem(expected);
+    const result = basket.checkBasket(expected);
+    // verify
+    expect(result).toEqual([expected]);
+  });
 });
