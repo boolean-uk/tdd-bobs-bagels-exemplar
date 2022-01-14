@@ -88,4 +88,12 @@ describe('Basket', () => {
     // verify
     expect(result).toEqual('your basket is full');
   });
+
+  it('remove an item from the basket', () => {
+    // set up
+    // execute
+    const result = basket.increaseBasket(5);
+    // verify
+    expect(result).toEqual(5);
+  });
 });
