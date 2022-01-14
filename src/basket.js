@@ -17,8 +17,12 @@ class Basket {
   }
 
   removeItem(id) {
+    const oldBasket = this.basket;
     const filtered = this.basket.filter((item) => item.id !== id);
     this.basket = filtered;
+    if (oldBasket.length === this.basket.length) {
+      return 'this item does not exist';
+    }
     return this.checkBasket();
   }
 
