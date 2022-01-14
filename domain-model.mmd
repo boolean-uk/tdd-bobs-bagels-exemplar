@@ -1,0 +1,15 @@
+classDiagram
+    Basket --> Item
+    Item --> Bagel
+    class Bagel
+    Bagel : +string name
+    Bagel : +number price
+    class Item
+    Item : +number id
+    Item : +number quantity
+    Item : +Bagel item
+    class Basket
+    Basket : +Bagel[] items
+    Basket : +number currentID
+    Basket : +addItem(Bagel item) Bagel
+    Basket : +removeItem(number id) Bagel
