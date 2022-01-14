@@ -21,14 +21,29 @@ describe('Basket', () => {
   it('add an item to the basket', () => {
     // set up
     const expected = {
+      id: 1,
+      type: 'onion',
+      price: '£2.50',
+    };
+
+    // execute
+    const result = basket.addItem(expected);
+    // verify
+    expect(result).toEqual([expected]);
+  });
+
+  it('remove an item from the basket', () => {
+    // set up
+    const expected = {
+      id: 1,
       type: 'onion',
       price: '£2.50',
     };
 
     // execute
     basket.addItem(expected);
-    const result = basket.checkBasket(expected);
+    const result = basket.removeItem(expected.id);
     // verify
-    expect(result).toEqual([expected]);
+    expect(result.length).toEqual(0);
   });
 });
