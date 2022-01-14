@@ -96,4 +96,18 @@ describe('Basket', () => {
     // verify
     expect(result).toEqual(5);
   });
+
+  it('be told that an item doesnt exist when trying to remove', () => {
+    // set up
+    const exp = {
+      id: 6,
+      type: 'onion',
+      price: '£2.50'
+    };
+    // execute
+    basket.addItem(exp);
+    const result = basket.removeItem(2);
+    // verify
+    expect(result).toEqual('this item does not exist');
+  });
 });
