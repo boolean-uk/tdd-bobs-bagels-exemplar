@@ -11,7 +11,13 @@ class Basket {
 
   addItem(item) {
     this.basket.push(item);
-    this.checkBasket();
+    return this.checkBasket();
+  }
+
+  removeItem(id) {
+    const filtered = this.basket.filter((item) => item.id !== id);
+    this.basket = filtered;
+    return this.checkBasket();
   }
 }
 
