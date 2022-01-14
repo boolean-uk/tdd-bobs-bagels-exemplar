@@ -3,9 +3,11 @@
 class Basket {
   constructor() {
     this.basket = [];
+    this.smallBasket = 5;
   }
 
   checkBasket() {
+    if (this.basket.length > this.smallBasket) return 'your basket is full';
     return this.basket;
   }
 
