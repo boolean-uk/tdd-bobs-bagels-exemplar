@@ -110,4 +110,13 @@ describe('Basket', () => {
     // verify
     expect(result).toEqual('this item does not exist');
   });
+
+  it('check the bagel price before adding to basket', () => {
+    // set up
+    const exp = 'onion';
+    // execute
+    const result = basket.checkPrice(exp);
+    // verify
+    expect(result).toEqual('£2.50');
+  });
 });
