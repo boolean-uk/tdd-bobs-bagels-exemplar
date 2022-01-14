@@ -29,6 +29,19 @@ class Basket {
   increaseBasket(size) {
     return (this.basketSize = size);
   }
+
+  checkPrice(type) {
+    switch (type) {
+      case 'onion':
+        return '£2.50';
+      case 'wheat':
+        return '£2.00';
+      case 'sesame':
+        return '£2.20';
+      default:
+        return Error;
+    }
+  }
 }
 
 module.exports = Basket;
