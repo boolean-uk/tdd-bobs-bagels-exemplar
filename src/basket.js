@@ -5,9 +5,13 @@ class Basket {
   constructor() {
     this.items = []
     this.nextID = 1
+    this.size = 5
   }
 
   addItem(type, price, quantity) {
+    if (this.items.length === this.size) {
+      return 'your basket is full'
+    }
     const bagel = new Bagel(type, price)
     const item = new Item(this.nextID, quantity, bagel)
     this.items.push(item)

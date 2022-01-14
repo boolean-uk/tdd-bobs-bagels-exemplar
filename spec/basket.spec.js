@@ -80,4 +80,66 @@ describe('Basket', () => {
     // verify
     expect(result).toEqual(expected)
   })
+  it('returns an error message when trying to add an item to an already full basket', () => {
+    // set up
+    const data = [
+      {
+        type: 'onion',
+        price: 2.99
+      },
+      {
+        type: 'bacon',
+        price: 3.99
+      },
+      {
+        type: 'salmon',
+        price: 5.99
+      },
+      {
+        type: 'banana',
+        price: 1.99
+      },
+      {
+        type: 'plain',
+        price: 0.5
+      }
+    ]
+    data.forEach((item) => basket.addItem(item.type, item.price, 1))
+    // execute
+    const result = basket.addItem('orange', 1.99, 1)
+    // verify
+    expect(result).toEqual('your basket is full')
+  })
+  it('returns an error message when trying to add an item to an already full basket', () => {
+    // set up
+    const data = [
+      {
+        type: 'onion',
+        price: 2.99
+      },
+      {
+        type: 'bacon',
+        price: 3.99
+      },
+      {
+        type: 'salmon',
+        price: 5.99
+      },
+      {
+        type: 'banana',
+        price: 1.99
+      },
+      {
+        type: 'plain',
+        price: 0.5
+      }
+    ]
+    const expected = new Item(6, 1, new Bagel('orange', 1.99))
+    data.forEach((item) => basket.addItem(item.type, item.price, 1))
+    // execute
+    basket.size = 6
+    const result = basket.addItem('orange', 1.99, 1)
+    // verify
+    expect(result).toEqual(expected)
+  })
 })

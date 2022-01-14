@@ -11,5 +11,6 @@ classDiagram
     class Basket
     Basket : +Bagel[] items
     Basket : +number currentID
-    Basket : +addItem(Bagel item) Bagel
-    Basket : +removeItem(number id) Bagel
+    Basket : +number size
+    Basket : +addItem(Bagel item) Bagel | string
+    Basket : +removeItem(number id) Bagel | string
