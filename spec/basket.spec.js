@@ -23,7 +23,7 @@ describe('Basket', () => {
     const expected = {
       id: 1,
       type: 'onion',
-      price: '£2.50',
+      price: '£2.50'
     };
 
     // execute
@@ -37,7 +37,7 @@ describe('Basket', () => {
     const expected = {
       id: 1,
       type: 'onion',
-      price: '£2.50',
+      price: '£2.50'
     };
 
     // execute
@@ -45,5 +45,47 @@ describe('Basket', () => {
     const result = basket.removeItem(expected.id);
     // verify
     expect(result.length).toEqual(0);
+  });
+
+  it('be told that the basket is full', () => {
+    // set up#
+    const expected = [
+      {
+        id: 1,
+        type: 'onion',
+        price: '£2.50'
+      },
+      {
+        id: 2,
+        type: 'onion',
+        price: '£2.50'
+      },
+      {
+        id: 3,
+        type: 'onion',
+        price: '£2.50'
+      },
+      {
+        id: 4,
+        type: 'onion',
+        price: '£2.50'
+      },
+      {
+        id: 5,
+        type: 'onion',
+        price: '£2.50'
+      }
+    ];
+    const exp = {
+      id: 6,
+      type: 'onion',
+      price: '£2.50'
+    };
+
+    expected.forEach((element) => basket.addItem(element));
+    // execute
+    const result = basket.addItem(exp);
+    // verify
+    expect(result).toEqual('your basket is full');
   });
 });
