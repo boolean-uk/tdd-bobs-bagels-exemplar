@@ -8,6 +8,11 @@ class Basket {
   checkBasket() {
     return this.basket;
   }
+
+  addItem(item) {
+    this.basket.push(item);
+    this.checkBasket();
+  }
 }
 
 module.exports = Basket;
