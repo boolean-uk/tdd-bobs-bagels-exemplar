@@ -23,7 +23,7 @@ describe('Basket', () => {
     const expected = {
       id: 1,
       type: 'onion',
-      price: '£2.50'
+      price: 2.5
     };
 
     // execute
@@ -37,7 +37,7 @@ describe('Basket', () => {
     const expected = {
       id: 1,
       type: 'onion',
-      price: '£2.50'
+      price: 2.5
     };
 
     // execute
@@ -52,34 +52,40 @@ describe('Basket', () => {
     const expected = [
       {
         id: 1,
-        type: 'onion',
-        price: '£2.50'
+        type: 'wheat',
+        price: 2.5,
+        quantity: 1
       },
       {
         id: 2,
-        type: 'onion',
-        price: '£2.50'
+        type: 'chocalte',
+        price: 2.5,
+        quantity: 1
       },
       {
         id: 3,
-        type: 'onion',
-        price: '£2.50'
+        type: 'seasame',
+        price: 2.5,
+        quantity: 1
       },
       {
         id: 4,
-        type: 'onion',
-        price: '£2.50'
+        type: 'raisin',
+        price: 2.5,
+        quantity: 1
       },
       {
         id: 5,
-        type: 'onion',
-        price: '£2.50'
+        type: 'pepper',
+        price: 2.5,
+        quantity: 1
       }
     ];
     const exp = {
       id: 6,
-      type: 'onion',
-      price: '£2.50'
+      type: 'strawberry',
+      price: 2.5,
+      quantity: 1
     };
 
     expected.forEach((element) => basket.addItem(element));
@@ -102,7 +108,8 @@ describe('Basket', () => {
     const exp = {
       id: 6,
       type: 'onion',
-      price: '£2.50'
+      price: 2.5,
+      quantity: 1
     };
     // execute
     basket.addItem(exp);
@@ -111,12 +118,64 @@ describe('Basket', () => {
     expect(result).toEqual('this item does not exist');
   });
 
+  it('increment the basket for same bagels', () => {
+    // set up
+    const exp = {
+      id: 1,
+      type: 'onion',
+      price: 2.5,
+      quantity: 1
+    };
+    // execute
+    basket.addItem(exp);
+    const result = basket.addItem(exp);
+    // verify
+    expect(result).toEqual([
+      {
+        id: 1,
+        type: 'onion',
+        price: 2.5,
+        quantity: 2
+      }
+    ]);
+  });
+
   it('check the bagel price before adding to basket', () => {
     // set up
     const exp = 'onion';
     // execute
     const result = basket.checkPrice(exp);
     // verify
-    expect(result).toEqual('£2.50');
+    expect(result).toEqual(2.5);
+  });
+
+  it('calculate the total price of all the bagels', () => {
+    // set up
+    const expected = [
+      {
+        id: 1,
+        type: 'wheat',
+        price: 2.5,
+        quantity: 1
+      },
+      {
+        id: 2,
+        type: 'chocalte',
+        price: 2.45,
+        quantity: 1
+      },
+      {
+        id: 1,
+        type: 'wheat',
+        price: 2.5,
+        quantity: 1
+      }
+    ];
+
+    expected.forEach((element) => basket.addItem(element));
+    // execute
+    const result = basket.checkout();
+    // verify
+    expect(result).toEqual(7.45);
   });
 });
