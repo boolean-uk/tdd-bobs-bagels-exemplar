@@ -4,6 +4,7 @@ class Basket {
   constructor() {
     this.basket = [];
     this.basketSize = 5;
+    this.basketTotal = [];
   }
 
   checkBasket() {
@@ -12,6 +13,11 @@ class Basket {
   }
 
   addItem(item) {
+    const inBasket = this.basket.map((el) => el.type).lastIndexOf(item.type);
+    if (inBasket !== -1) {
+      this.basket[inBasket].quantity++;
+      return this.checkBasket();
+    }
     this.basket.push(item);
     return this.checkBasket();
   }
@@ -33,15 +39,20 @@ class Basket {
   checkPrice(type) {
     switch (type) {
       case 'onion':
-        return '£2.50';
+        return 2.5;
       case 'wheat':
-        return '£2.00';
+        return 2.0;
       case 'sesame':
-        return '£2.20';
+        return 2.2;
       default:
         return Error;
     }
   }
-}
 
+  checkout() {
+    return this.basket
+      .map((item) => item.quantity * item.price)
+      .reduce((previous, current) => previous + current, 0);
+  }
+}
 module.exports = Basket;
