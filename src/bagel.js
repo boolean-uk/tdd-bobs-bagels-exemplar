@@ -1,7 +1,10 @@
 class Bagel {
-  constructor (type, price) {
-    this.type = type
+  constructor (sku, price, name, variant, fillings) {
+    this.sku = sku
     this.price = price
+    this.name = name
+    this.variant = variant
+    this.fillings = fillings
   }
 }
 

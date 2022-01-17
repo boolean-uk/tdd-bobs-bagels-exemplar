@@ -1,6 +1,6 @@
-const Bagel = require('../src/bagel')
 const Item = require('../src/item')
 const Basket = require('../src/basket')
+const getBagelBySku = require('./util').getBagelBySku
 
 describe('Basket', () => {
   let basket
@@ -11,10 +11,10 @@ describe('Basket', () => {
 
   it('can add a bagel to the basket', () => {
     // set up
-    const expected = new Item(1, 1, new Bagel('onion', 3.99))
+    const expected = new Item(1, 1, getBagelBySku('BGLO'))
 
     // execute
-    const result = basket.addItem('onion', 3.99, 1)
+    const result = basket.addItem('BGLO')
 
     // verify
     expect(result).toEqual(expected)
@@ -23,52 +23,26 @@ describe('Basket', () => {
     // set up
     const expected = 0
     // execute
-    const result = basket.getItems()
+    const result = basket.getItemsInBasket()
     // verify
     expect(result.length).toEqual(expected)
   })
   it('can show a list of all items in the basket - multiple', () => {
     // set up
-    const expected = [
-      {
-        type: 'onion',
-        price: 2.99
-      },
-      {
-        type: 'bacon',
-        price: 3.99
-      },
-      {
-        type: 'salmon',
-        price: 5.99
-      }
-    ]
-    expected.forEach((item) => basket.addItem(item.type, item.price, 1))
+    const expected = ['BGLO', 'BGLP', 'BGLS']
+    expected.forEach((item) => basket.addItem(item))
     // execute
-    const result = basket.getItems()
+    const result = basket.getItemsInBasket()
     // verify
     expect(result.length).toEqual(expected.length)
   })
   it('can remove an item from the basket', () => {
     // set up
-    const data = [
-      {
-        type: 'onion',
-        price: 2.99
-      },
-      {
-        type: 'bacon',
-        price: 3.99
-      },
-      {
-        type: 'salmon',
-        price: 5.99
-      }
-    ]
-    data.forEach((item) => basket.addItem(item.type, item.price, 1))
-    const expected = new Item(2, 1, new Bagel(data[1].type, data[1].price))
+    const data = ['BGLO', 'BGLP', 'BGLS']
+    data.forEach((item) => basket.addItem(item))
+    const expected = new Item(1, 1, getBagelBySku('BGLO'))
     // execute
-    const result = basket.removeItem(2)
+    const result = basket.removeItem('BGLO')
     // verify
     expect(result).toEqual(expected)
   })
@@ -82,63 +56,21 @@ describe('Basket', () => {
   })
   it('returns an error message when trying to add an item to an already full basket', () => {
     // set up
-    const data = [
-      {
-        type: 'onion',
-        price: 2.99
-      },
-      {
-        type: 'bacon',
-        price: 3.99
-      },
-      {
-        type: 'salmon',
-        price: 5.99
-      },
-      {
-        type: 'banana',
-        price: 1.99
-      },
-      {
-        type: 'plain',
-        price: 0.5
-      }
-    ]
-    data.forEach((item) => basket.addItem(item.type, item.price, 1))
+    const data = ['BGLO', 'BGLP', 'BGLS', 'BGSE', 'BGSS']
+    data.forEach((item) => basket.addItem(item))
     // execute
-    const result = basket.addItem('orange', 1.99, 1)
+    const result = basket.addItem('COF')
     // verify
     expect(result).toEqual('your basket is full')
   })
-  it('returns an error message when trying to add an item to an already full basket', () => {
+  it('can change the size of the basket', () => {
     // set up
-    const data = [
-      {
-        type: 'onion',
-        price: 2.99
-      },
-      {
-        type: 'bacon',
-        price: 3.99
-      },
-      {
-        type: 'salmon',
-        price: 5.99
-      },
-      {
-        type: 'banana',
-        price: 1.99
-      },
-      {
-        type: 'plain',
-        price: 0.5
-      }
-    ]
-    const expected = new Item(6, 1, new Bagel('orange', 1.99))
-    data.forEach((item) => basket.addItem(item.type, item.price, 1))
+    const data = ['BGLO', 'BGLP', 'BGLS', 'BGSE', 'BGSS']
+    const expected = new Item(6, 1, getBagelBySku('COF'))
+    data.forEach((item) => basket.addItem(item))
     // execute
     basket.size = 6
-    const result = basket.addItem('orange', 1.99, 1)
+    const result = basket.addItem('COF')
     // verify
     expect(result).toEqual(expected)
   })

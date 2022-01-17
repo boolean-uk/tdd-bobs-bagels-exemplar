@@ -1,5 +1,6 @@
 const Bagel = require('./bagel')
 const Item = require('./item')
+const Inventory = require('../inventory.json').inventory
 
 class Basket {
   constructor() {
@@ -8,34 +9,28 @@ class Basket {
     this.size = 5
   }
 
-  addItem(type, price, quantity) {
+  addItem(sku) {
     if (this.items.length === this.size) {
       return 'your basket is full'
     }
-    const bagel = new Bagel(type, price)
-    const item = new Item(this.nextID, quantity, bagel)
+    const bagel = Inventory.filter((item) => item.sku === sku)
+    const item = new Item(this.nextID, 1, bagel[0])
     this.items.push(item)
     this.nextID++
     return item
   }
 
-  getItems() {
+  getItemsInBasket() {
     return this.items
   }
 
-  removeItem(id) {
-    let itemToRemove = null
-    this.items = this.items.filter((item) => {
-      if (item.id === id) {
-        itemToRemove = item
-        return false
-      }
-      return true
-    })
-    if (itemToRemove === null) {
+  removeItem(sku) {
+    const filtered = this.items.filter((item) => item.item.sku === sku)
+    if (filtered.length === 0) {
       return 'item not found'
     }
-    return itemToRemove
+    this.items = this.items.filter((item) => item.item.sku !== sku)
+    return filtered[0]
   }
 }
 

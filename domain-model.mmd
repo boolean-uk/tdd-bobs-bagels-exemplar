@@ -2,15 +2,18 @@ classDiagram
     Basket --> Item
     Item --> Bagel
     class Bagel
-    Bagel : +string name
+    Bagel : +string sku
+    Bagel : +string variant
     Bagel : +number price
+    Bagel : +string[] fillings
     class Item
-    Item : +number id
     Item : +number quantity
     Item : +Bagel item
     class Basket
     Basket : +Bagel[] items
     Basket : +number currentID
     Basket : +number size
-    Basket : +addItem(Bagel item) Bagel | string
-    Basket : +removeItem(number id) Bagel | string
+    Basket : +addItem(itemSKU) Item | string
+    Basket : +removeItem(itemSKU) Item | string
+    Basket : +getItemsInBasket() Item[]
+    Basket : +getBagels() Bagel[]
