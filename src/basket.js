@@ -10,6 +10,15 @@ class Basket {
   }
 
   addItem(sku) {
+    const inBasket = this.items
+      .map((bItem, index) => [bItem, index])
+      .filter(([bItem]) => bItem.item.sku === sku)
+    if (inBasket.length > 0) {
+      const [bItem, index] = inBasket[0]
+      bItem.quantity++
+      this.items[index] = bItem
+      return bItem
+    }
     if (this.items.length === this.size) {
       return 'your basket is full'
     }
@@ -31,6 +40,19 @@ class Basket {
     }
     this.items = this.items.filter((item) => item.item.sku !== sku)
     return filtered[0]
+  }
+
+  getPriceBySku(sku) {
+    const bagels = Inventory.filter((item) => item.sku === sku)
+    if (bagels.length === 0) {
+      return 'bagel not found'
+    }
+    return bagels[0].price
+  }
+
+  getTotal() {
+    const totaler = (total, item) => total + item.quantity * item.item.price
+    return this.items.reduce(totaler, 0)
   }
 }
 

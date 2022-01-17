@@ -74,4 +74,40 @@ describe('Basket', () => {
     // verify
     expect(result).toEqual(expected)
   })
+  it('returns a bagel not found error when getting an unknown price', () => {
+    // set up
+    const expected = 'bagel not found'
+    // execute
+    const result = basket.getPriceBySku('not-a-sku')
+    // verify
+    expect(result).toEqual(expected)
+  })
+  it('can get price by sku', () => {
+    // set up
+    const expected = '0.49'
+    // execute
+    const result = basket.getPriceBySku('BGLO')
+    // verify
+    expect(result).toEqual(expected)
+  })
+  it('can increase quantity of an item', () => {
+    // set up
+    const expected = new Item(1, 2, getBagelBySku('BGLO'))
+    basket.addItem('BGLO')
+    basket.addItem('BGLO')
+    // execute
+    const result = basket.getItemsInBasket()[0]
+    // verify
+    expect(result).toEqual(expected)
+  })
+  fit('can total items in the basket', () => {
+    // set up
+    const expected = 0.98
+    basket.addItem('BGLO')
+    basket.addItem('BGLO')
+    // execute
+    const result = basket.getTotal()
+    // verify
+    expect(result).toEqual(expected)
+  })
 })
